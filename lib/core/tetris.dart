@@ -7,15 +7,35 @@ class Tetris {
   int minoType = 0, minoAngle = 0;
   int minoX = 5, minoY = 0;
   List<List<int>> field = List.generate(fieldHeight, (i) => List.generate(fieldWidth, (i) => 0));
-  List<dynamic> displayBuffer = List.generate(fieldHeight, (i) => List.generate(fieldWidth, (i) => 0));
 
   Tetris() {
     initField();
     resetMino();
-    display();
-    // for (int i = 0; i < 20; i++) {
-    //   cycle();
-    // }
+    for (var console in consoleDisplay) {
+      print(console);
+    }
+  }
+
+  List<dynamic> get displayBuffer {
+    var tmpDisplayBuffer = deepCopy(field);
+
+    for (int i = 0; i < minoHeight; i++) {
+      for (int j = 0; j < minoWidth; j++) {
+        tmpDisplayBuffer[minoY + i][minoX + j] |=
+        minoShapes[minoType]![minoAngle]![i * minoWidth + j];
+      }
+    }
+    return tmpDisplayBuffer;
+  }
+
+  List<dynamic> get consoleDisplay {
+    var tmpConsoleDisplay = deepCopy(displayBuffer);
+    for (int i = 0; i < fieldHeight; i++) {
+      for (int j = 0; j < fieldWidth; j++) {
+        tmpConsoleDisplay[i][j] = tmpConsoleDisplay[i][j] > 0 ? "口" : "  ";
+      }
+    }
+    return tmpConsoleDisplay;
   }
 
   initField() {
@@ -44,24 +64,6 @@ class Tetris {
       }
     }
     return false;
-  }
-
-  void display() {
-    displayBuffer = deepCopy(field);
-
-    for (int i = 0; i < minoHeight; i++) {
-      for (int j = 0; j < minoWidth; j++) {
-        displayBuffer[minoY + i][minoX + j] |=
-        minoShapes[minoType]![minoAngle]![i * minoWidth + j];
-      }
-    }
-
-    for (int i = 0; i < fieldHeight; i++) {
-      for (int j = 0; j < fieldWidth; j++) {
-        displayBuffer[i][j] = displayBuffer[i][j] > 0 ? "口" : "  ";
-      }
-      print(displayBuffer[i]);
-    }
   }
 
   void keyInput(input) {
@@ -118,6 +120,6 @@ class Tetris {
     } else {
       minoY++;
     }
-    display();
+    // display();
   }
 }
