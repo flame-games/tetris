@@ -5,6 +5,7 @@ import 'dart:async';
 class TetrisMain {
   late Tetris gameCore;
   late Timer gameLoop;
+  late Function renderCallbackHandler;
 
   TetrisMain({
     int minoType = 0,
@@ -23,13 +24,22 @@ class TetrisMain {
     gameLoop = Timer.periodic(const Duration(seconds: 1), (timer) { loop(); });
   }
 
+  List<dynamic> get displayBuffer => gameCore.displayBuffer;
+
+  void setRenderCallback(Function fn) => renderCallbackHandler = fn;
+
   void loop() {
     cycle();
   }
 
   void cycle() {
     gameCore.cycle();
-    consoleDisplay();
+    renderCallbackHandler();
+  }
+
+  void keyInput(input) {
+    gameCore.keyInput(input);
+    renderCallbackHandler();
   }
 
   void consoleDisplay() {

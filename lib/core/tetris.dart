@@ -91,29 +91,28 @@ class Tetris {
   void keyInput(input) {
     switch (input) {
       // case 'w': minoY++; break;
-      case 's':
+      case 'down':
         if (!isHit(mino.x, mino.y + 1, mino.type, mino.angle)) {
           mino.y++;
         }
         break;
-      case 'a':
+      case 'left':
         if (!isHit(mino.x - 1, mino.y, mino.type, mino.angle)) {
           mino.x--;
         }
         break;
-      case 'd':
+      case 'right':
         if (!isHit(mino.x + 1, mino.y, mino.type, mino.angle)) {
           mino.x++;
         }
         break;
-      case 0x20:
+      case 'rotate':
         if (!isHit(
             mino.x, mino.y, mino.type, (mino.angle + 1) % MinoAngle.a_max.index)) {
           mino.angle = (mino.angle + 1) % MinoAngle.a_max.index;
         }
         break;
     }
-    // display();
   }
 
   void cycle() {
@@ -134,15 +133,15 @@ class Tetris {
 
         if (lineFill) {
           for (int j = i; 0 < j; j--) {
-            field[j] = deepCopy(field[j - 1]);
+            // field[j] = deepCopy(field[j - 1]);
+            // field[j] = field[j - 1];
+            field[j] = [...field[j - 1]];
           }
         }
       }
-      // resetMino();
       changeMino();
     } else {
       mino.y++;
     }
-    // display();
   }
 }
