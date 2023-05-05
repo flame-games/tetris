@@ -41,7 +41,7 @@ class Tetris {
 
     for (int i = 0; i < minoHeight; i++) {
       for (int j = 0; j < minoWidth; j++) {
-        tmpDisplayBuffer[mino.y + i][mino.x + j] |=
+        tmpDisplayBuffer[mino.y + i][getLimitFieldX(mino.x, j)] |=
         minoShapes[mino.type]![mino.angle]![i * minoWidth + j];
       }
     }
@@ -80,8 +80,8 @@ class Tetris {
   bool isHit(int minoX, int minoY, int minoType, int minoAngle) {
     for (int i = 0; i < minoHeight; i++) {
       for (int j = 0; j < minoWidth; j++) {
-        if (minoShapes[minoType]![minoAngle]![i * minoWidth + j] > 0 && field[minoY + i][minoX + j] > 0) {
-           return true;
+        if (minoShapes[minoType]![minoAngle]![i * minoWidth + j] > 0 && field[minoY + i][getLimitFieldX(minoX, j)] > 0) {
+          return true;
         }
       }
     }
@@ -119,7 +119,7 @@ class Tetris {
     if(isHit(mino.x, mino.y + 1, mino.type, mino.angle)) {
       for (int i = 0; i < minoHeight; i++) {
         for (int j = 0; j < minoWidth; j++) {
-          field[mino.y + i][mino.x + j] |= minoShapes[mino.type]![mino.angle]![i * minoWidth + j];
+          field[mino.y + i][getLimitFieldX(mino.x, j)] |= minoShapes[mino.type]![mino.angle]![i * minoWidth + j];
         }
       }
 
@@ -133,8 +133,6 @@ class Tetris {
 
         if (lineFill) {
           for (int j = i; 0 < j; j--) {
-            // field[j] = deepCopy(field[j - 1]);
-            // field[j] = field[j - 1];
             field[j] = [...field[j - 1]];
           }
         }
@@ -143,5 +141,11 @@ class Tetris {
     } else {
       mino.y++;
     }
+  }
+
+  int getLimitFieldX(int minoX, int j) {
+    var fieldX = (minoX + j) <= 0 ? 0 : minoX + j;
+    if ((minoX + j) >= fieldWidth - 1) fieldX = fieldWidth - 1;
+    return fieldX;
   }
 }
