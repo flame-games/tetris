@@ -1,19 +1,39 @@
 import 'dart:math' as math;
+import 'mino.dart';
 import '../utility/config.dart';
 import '../utility/mino_enum.dart';
 import '../utility/deep_copy.dart';
 
 class Tetris {
-  int minoType = 0, minoAngle = 0;
-  int minoX = 5, minoY = 0;
   List<List<int>> field = List.generate(fieldHeight, (i) => List.generate(fieldWidth, (i) => 0));
+  late Mino mino;
+  late Mino nextMino;
 
-  Tetris() {
+  Tetris({
+    minoType = 0,
+    minoAngle = 0,
+    minoX = 5,
+    minoY = 0,
+    bool random = true
+  }) {
     initField();
-    resetMino();
-    for (var console in consoleDisplay) {
-      print(console);
+
+    if (random) {
+      mino = getRandomMino();
+      nextMino = getRandomMino();
+    } else {
+      mino = factoryMino(minoType, minoAngle, minoX, minoY);
+      nextMino = getRandomMino();
     }
+  }
+
+  Mino factoryMino(int type, int angle, int x, int y) {
+    return Mino(
+      type: type,
+      angle: angle,
+      x: x,
+      y: y,
+    );
   }
 
   List<dynamic> get displayBuffer {
@@ -21,8 +41,8 @@ class Tetris {
 
     for (int i = 0; i < minoHeight; i++) {
       for (int j = 0; j < minoWidth; j++) {
-        tmpDisplayBuffer[minoY + i][minoX + j] |=
-        minoShapes[minoType]![minoAngle]![i * minoWidth + j];
+        tmpDisplayBuffer[mino.y + i][mino.x + j] |=
+        minoShapes[mino.type]![mino.angle]![i * minoWidth + j];
       }
     }
     return tmpDisplayBuffer;
@@ -47,12 +67,14 @@ class Tetris {
     }
   }
 
-  void resetMino() {
+  Mino getRandomMino() {
     var random = math.Random();
-    minoX = 5;
-    minoY = 0;
-    minoType = random.nextInt(100) % MinoType.Max.index;
-    minoAngle = random.nextInt(100) % Mino.angle_max.index;
+    return Mino(type: random.nextInt(100) % MinoType.Max.index, angle: random.nextInt(100) % MinoAngle.a_max.index);
+  }
+
+  void changeMino() {
+    mino = deepCopy(nextMino);
+    nextMino = getRandomMino();
   }
 
   bool isHit(int minoX, int minoY, int minoType, int minoAngle) {
@@ -70,24 +92,24 @@ class Tetris {
     switch (input) {
       // case 'w': minoY++; break;
       case 's':
-        if (!isHit(minoX, minoY + 1, minoType, minoAngle)) {
-          minoY++;
+        if (!isHit(mino.x, mino.y + 1, mino.type, mino.angle)) {
+          mino.y++;
         }
         break;
       case 'a':
-        if (!isHit(minoX - 1, minoY, minoType, minoAngle)) {
-          minoX--;
+        if (!isHit(mino.x - 1, mino.y, mino.type, mino.angle)) {
+          mino.x--;
         }
         break;
       case 'd':
-        if (!isHit(minoX + 1, minoY, minoType, minoAngle)) {
-          minoX++;
+        if (!isHit(mino.x + 1, mino.y, mino.type, mino.angle)) {
+          mino.x++;
         }
         break;
       case 0x20:
         if (!isHit(
-            minoX, minoY, minoType, (minoAngle + 1) % Mino.angle_max.index)) {
-          minoAngle = (minoAngle + 1) % Mino.angle_max.index;
+            mino.x, mino.y, mino.type, (mino.angle + 1) % MinoAngle.a_max.index)) {
+          mino.angle = (mino.angle + 1) % MinoAngle.a_max.index;
         }
         break;
     }
@@ -95,10 +117,10 @@ class Tetris {
   }
 
   void cycle() {
-    if(isHit(minoX, minoY + 1, minoType, minoAngle)) {
+    if(isHit(mino.x, mino.y + 1, mino.type, mino.angle)) {
       for (int i = 0; i < minoHeight; i++) {
         for (int j = 0; j < minoWidth; j++) {
-          field[minoY + i][minoX + j] |= minoShapes[minoType]![minoAngle]![i * minoWidth + j];
+          field[mino.y + i][mino.x + j] |= minoShapes[mino.type]![mino.angle]![i * minoWidth + j];
         }
       }
 
@@ -116,9 +138,10 @@ class Tetris {
           }
         }
       }
-      resetMino();
+      // resetMino();
+      changeMino();
     } else {
-      minoY++;
+      mino.y++;
     }
     // display();
   }

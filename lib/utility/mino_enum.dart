@@ -1,9 +1,9 @@
-enum Mino {
-  angle_0,
-  angle_90,
-  angle_180,
-  angle_270,
-  angle_max,
+enum MinoAngle {
+  a_0,
+  a_90,
+  a_180,
+  a_270,
+  a_max,
 }
 
 enum MinoType {
@@ -19,25 +19,25 @@ enum MinoType {
 
 Map<int, Map<int, List<int>>> minoShapes = {
   MinoType.I.index: {
-    Mino.angle_0.index: [
+    MinoAngle.a_0.index: [
       0, 1, 0, 0,
       0, 1, 0, 0,
       0, 1, 0, 0,
       0, 1, 0, 0
     ],
-    Mino.angle_90.index: [
+    MinoAngle.a_90.index: [
       0, 0, 0, 0,
       0, 0, 0, 0,
       1, 1, 1, 1,
       0, 0, 0, 0
     ],
-    Mino.angle_180.index: [
+    MinoAngle.a_180.index: [
       0, 0, 1, 0,
       0, 0, 1, 0,
       0, 0, 1, 0,
       0, 0, 1, 0
     ],
-    Mino.angle_270.index: [
+    MinoAngle.a_270.index: [
       0, 0, 0, 0,
       1, 1, 1, 1,
       0, 0, 0, 0,
@@ -45,25 +45,25 @@ Map<int, Map<int, List<int>>> minoShapes = {
     ],
   },
   MinoType.O.index: {
-    Mino.angle_0.index: [
+    MinoAngle.a_0.index: [
       0, 0, 0, 0,
       0, 1, 1, 0,
       0, 1, 1, 0,
       0, 0, 0, 0
     ],
-    Mino.angle_90.index: [
+    MinoAngle.a_90.index: [
       0, 0, 0, 0,
       0, 1, 1, 0,
       0, 1, 1, 0,
       0, 0, 0, 0
     ],
-    Mino.angle_180.index: [
+    MinoAngle.a_180.index: [
       0, 0, 0, 0,
       0, 1, 1, 0,
       0, 1, 1, 0,
       0, 0, 0, 0
     ],
-    Mino.angle_270.index: [
+    MinoAngle.a_270.index: [
       0, 0, 0, 0,
       0, 1, 1, 0,
       0, 1, 1, 0,
@@ -71,25 +71,25 @@ Map<int, Map<int, List<int>>> minoShapes = {
     ],
   },
   MinoType.S.index: {
-    Mino.angle_0.index: [
+    MinoAngle.a_0.index: [
       0, 0, 0, 0,
       0, 1, 1, 0,
       1, 1, 0, 0,
       0, 0, 0, 0
     ],
-    Mino.angle_90.index: [
+    MinoAngle.a_90.index: [
       0, 1, 0, 0,
       0, 1, 1, 0,
       0, 0, 1, 0,
       0, 0, 0, 0
     ],
-    Mino.angle_180.index: [
+    MinoAngle.a_180.index: [
       0, 0, 0, 0,
       0, 1, 1, 0,
       1, 1, 0, 0,
       0, 0, 0, 0
     ],
-    Mino.angle_270.index: [
+    MinoAngle.a_270.index: [
       0, 0, 0, 0,
       0, 1, 0, 0,
       0, 1, 1, 0,
@@ -97,25 +97,25 @@ Map<int, Map<int, List<int>>> minoShapes = {
     ],
   },
   MinoType.Z.index: {
-    Mino.angle_0.index: [
+    MinoAngle.a_0.index: [
       0, 0, 0, 0,
       1, 1, 0, 0,
       0, 1, 1, 0,
       0, 0, 0, 0
     ],
-    Mino.angle_90.index: [
+    MinoAngle.a_90.index: [
       0, 0, 0, 0,
       0, 0, 1, 0,
       0, 1, 1, 0,
       0, 1, 0, 0
     ],
-    Mino.angle_180.index: [
+    MinoAngle.a_180.index: [
       0, 0, 0, 0,
       0, 1, 1, 0,
       0, 0, 1, 1,
       0, 0, 0, 0
     ],
-    Mino.angle_270.index: [
+    MinoAngle.a_270.index: [
       0, 0, 1, 0,
       0, 1, 1, 0,
       0, 1, 0, 0,
@@ -123,25 +123,25 @@ Map<int, Map<int, List<int>>> minoShapes = {
     ],
   },
   MinoType.J.index: {
-    Mino.angle_0.index: [
+    MinoAngle.a_0.index: [
       0, 0, 1, 0,
       0, 0, 1, 0,
       0, 1, 1, 0,
       0, 0, 0, 0
     ],
-    Mino.angle_90.index: [
+    MinoAngle.a_90.index: [
       0, 0, 0, 0,
       1, 1, 1, 0,
       0, 0, 1, 0,
       0, 0, 0, 0
     ],
-    Mino.angle_180.index: [
+    MinoAngle.a_180.index: [
       0, 0, 0, 0,
       0, 1, 1, 0,
       0, 1, 0, 0,
       0, 1, 0, 0
     ],
-    Mino.angle_270.index: [
+    MinoAngle.a_270.index: [
       0, 0, 0, 0,
       0, 1, 0, 0,
       0, 1, 1, 1,
@@ -149,25 +149,25 @@ Map<int, Map<int, List<int>>> minoShapes = {
     ],
   },
   MinoType.L.index: {
-    Mino.angle_0.index: [
+    MinoAngle.a_0.index: [
       0, 1, 0, 0,
       0, 1, 0, 0,
       0, 1, 1, 0,
       0, 0, 0, 0
     ],
-    Mino.angle_90.index: [
+    MinoAngle.a_90.index: [
       0, 0, 0, 0,
       0, 0, 1, 0,
       1, 1, 1, 0,
       0, 0, 0, 0
     ],
-    Mino.angle_180.index: [
+    MinoAngle.a_180.index: [
       0, 0, 0, 0,
       0, 1, 1, 0,
       0, 0, 1, 0,
       0, 0, 1, 0
     ],
-    Mino.angle_270.index: [
+    MinoAngle.a_270.index: [
       0, 0, 0, 0,
       0, 1, 1, 1,
       0, 1, 0, 0,
@@ -175,25 +175,25 @@ Map<int, Map<int, List<int>>> minoShapes = {
     ],
   },
   MinoType.T.index: {
-    Mino.angle_0.index: [
+    MinoAngle.a_0.index: [
       0, 0, 0, 0,
       1, 1, 1, 0,
       0, 1, 0, 0,
       0, 0, 0, 0
     ],
-    Mino.angle_90.index: [
+    MinoAngle.a_90.index: [
       0, 0, 0, 0,
       0, 1, 0, 0,
       0, 1, 1, 0,
       0, 1, 0, 0
     ],
-    Mino.angle_180.index: [
+    MinoAngle.a_180.index: [
       0, 0, 0, 0,
       0, 0, 1, 0,
       0, 1, 1, 1,
       0, 0, 0, 0
     ],
-    Mino.angle_270.index: [
+    MinoAngle.a_270.index: [
       0, 0, 1, 0,
       0, 1, 1, 0,
       0, 0, 1, 0,

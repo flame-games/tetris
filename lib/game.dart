@@ -4,10 +4,10 @@ import 'package:flame/input.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 
-import 'package:tetris/core/tetris.dart';
+import 'package:tetris/core/tetris_main.dart';
 
 class MainGame extends FlameGame with KeyboardEvents, HasGameRef {
-  Tetris _tetris = Tetris();
+  TetrisMain _tetris = TetrisMain();
 
   @override
   Color backgroundColor() => const Color.fromRGBO(89, 106, 108, 1.0);
