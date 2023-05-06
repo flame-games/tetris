@@ -117,29 +117,36 @@ class Tetris {
 
   void cycle() {
     if(isHit(mino.x, mino.y + 1, mino.type, mino.angle)) {
-      for (int i = 0; i < minoHeight; i++) {
-        for (int j = 0; j < minoWidth; j++) {
-          field[mino.y + i][getLimitFieldX(mino.x, j)] |= minoShapes[mino.type]![mino.angle]![i * minoWidth + j];
-        }
-      }
-
-      for (int i = 0; i < fieldHeight - 1; i++) {
-        bool lineFill = true;
-        for (int j = 1; j < fieldWidth - 1; j++) {
-          if (field[i][j] == 0) {
-            lineFill = false;
-          }
-        }
-
-        if (lineFill) {
-          for (int j = i; 0 < j; j--) {
-            field[j] = [...field[j - 1]];
-          }
-        }
-      }
+      fieldMergeMino();
+      lineFillCheck();
       changeMino();
     } else {
       mino.y++;
+    }
+  }
+
+  void fieldMergeMino() {
+    for (int i = 0; i < minoHeight; i++) {
+      for (int j = 0; j < minoWidth; j++) {
+        field[mino.y + i][getLimitFieldX(mino.x, j)] |= minoShapes[mino.type]![mino.angle]![i * minoWidth + j];
+      }
+    }
+  }
+
+  void lineFillCheck() {
+    for (int i = 0; i < fieldHeight - 1; i++) {
+      bool lineFill = true;
+      for (int j = 1; j < fieldWidth - 1; j++) {
+        if (field[i][j] == 0) {
+          lineFill = false;
+        }
+      }
+
+      if (lineFill) {
+        for (int j = i; 0 < j; j--) {
+          field[j] = [...field[j - 1]];
+        }
+      }
     }
   }
 
