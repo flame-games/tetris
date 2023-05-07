@@ -21,7 +21,7 @@ class TetrisMain {
       minoY: minoY,
       random: random,
     );
-    gameLoop = Timer.periodic(const Duration(seconds: 1), (timer) { loop(); });
+    gameLoop = Timer.periodic(const Duration(milliseconds: 1000), (timer) { loop(); });
   }
 
   List<dynamic> get displayBuffer => gameCore.displayBuffer;
