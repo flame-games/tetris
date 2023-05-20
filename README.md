@@ -1,16 +1,33 @@
-# tetris
+# Tetris med Flutter Flame
 
-A new Flutter project.
+Minimum configuration for flame version of Tetris
 
-## Getting Started
+<img width="500" src="https://github.com/flame-games/tetris/assets/1584153/f66d1bfc-3bf8-4bdd-9f9f-9409fc7000f8">
 
-This project is a starting point for a Flutter application.
+## Usage
 
-A few resources to get you started if this is your first Flutter project:
+```
+flutter run
+```
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+### Input Reference
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+| input | Direction |
+| -------------- |:------------:|:------------:|
+| LogicalKeyboardKey keyW or arrowUp | up    |
+| LogicalKeyboardKey keyA or arrowLeft | left  |
+| LogicalKeyboardKey keyD or arrowRight | right |
+| LogicalKeyboardKey keyS or arrowDown | down  |
+| LogicalKeyboardKey keySpace | rotate  |
+
+## Author
+
+**Daisuke Takayama**
+
+-   [@webcyou](https://twitter.com/webcyou)
+-   [@panicdragon](https://twitter.com/panicdragon)
+-   <https://github.com/webcyou>
+-   <https://github.com/webcyou-org>
+-   <https://github.com/panicdragon>
+-   <https://www.webcyou.com/>
+
