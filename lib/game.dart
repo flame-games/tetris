@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flame/components.dart' hide Timer;
 import 'package:flame/game.dart';
 import 'package:flame/input.dart';
@@ -51,6 +53,12 @@ class MainGame extends FlameGame with KeyboardEvents, HasGameRef {
     for(var nextMino in _nextMinoComponentList) {
       add(nextMino);
     }
+
+    add(getRenderText('NEXT', 360.0, 30.0));
+    add(getRenderText('LEVEL', 360.0, 180.0));
+    add(getRenderText('1', 360.0, 220.0));
+    add(getRenderText('SCORE', 360.0, 280.0));
+    add(getRenderText('0', 360.0, 320.0));
     // camera.followVector2(Vector2(pushGame.state.width * oneBlockSize / 2, pushGame.state.height * oneBlockSize / 2));
   }
 
@@ -81,6 +89,7 @@ class MainGame extends FlameGame with KeyboardEvents, HasGameRef {
     }
     for(var nextMino in _nextMinoComponentList) {
       nextMino.position.x = nextMino.position.x + 340;
+      nextMino.position.y = nextMino.position.y + 40;
     }
   }
 
@@ -133,6 +142,16 @@ class MainGame extends FlameGame with KeyboardEvents, HasGameRef {
     for(var nextMino in _nextMinoComponentList) {
       add(nextMino);
     }
+  }
+
+  TextComponent getRenderText(String text, double x, double y) {
+    const style = TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold);
+    final regular = TextPaint(style: style);
+
+    return TextComponent(text: text, textRenderer: regular)
+      // ..anchor = Anchor.topCenter
+      ..x = x
+      ..y = y;
   }
 
   @override
