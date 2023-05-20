@@ -14,6 +14,7 @@ class MainGame extends FlameGame with KeyboardEvents, HasGameRef {
 
   final List<RectangleComponent> _wallComponentList = [];
   final List<RectangleComponent> _rectComponentList = [];
+  final List<RectangleComponent> _nextMinoComponentList = [];
 
   // @override
   // Color backgroundColor() => const Color.fromRGBO(89, 106, 108, 1.0);
@@ -24,6 +25,7 @@ class MainGame extends FlameGame with KeyboardEvents, HasGameRef {
     await draw();
 
     _tetris.setRenderCallback(renderCallback);
+    _tetris.setChangeMinoCallback(minoBottomHitCallback);
   }
 
   Future<void> draw() async {
@@ -44,12 +46,42 @@ class MainGame extends FlameGame with KeyboardEvents, HasGameRef {
     for(var rect in _rectComponentList) {
       add(rect);
     }
+
+    createNextMino();
+    for(var nextMino in _nextMinoComponentList) {
+      add(nextMino);
+    }
     // camera.followVector2(Vector2(pushGame.state.width * oneBlockSize / 2, pushGame.state.height * oneBlockSize / 2));
   }
 
   renderCallback() {
     resetRenderMino();
     renderMino();
+  }
+
+  minoBottomHitCallback() {
+    resetRenderMino();
+    renderMino();
+
+    resetRenderNextMino();
+    createNextMino();
+    for(var nextMino in _nextMinoComponentList) {
+      add(nextMino);
+    }
+  }
+
+  createNextMino() {
+    for (var y = 0; y < _tetris.nextMinoShapeArray.length; y++) {
+      final row = _tetris.nextMinoShapeArray[y];
+      for (var x = 0; x < row.length; x++) {
+        if (row[x] > 1) {
+          _nextMinoComponentList.add(createBlock(x + 1, y + 1, getBlockPaint(row[x])));
+        }
+      }
+    }
+    for(var nextMino in _nextMinoComponentList) {
+      nextMino.position.x = nextMino.position.x + 340;
+    }
   }
 
   createBlock(int x, int y, Paint paint) {
@@ -89,6 +121,20 @@ class MainGame extends FlameGame with KeyboardEvents, HasGameRef {
     }
   }
 
+  void resetRenderNextMino() {
+    for (var nextMino in _nextMinoComponentList) {
+      remove(nextMino);
+    }
+    _nextMinoComponentList.clear();
+  }
+
+  void renderNextMino() {
+    createNextMino();
+    for(var nextMino in _nextMinoComponentList) {
+      add(nextMino);
+    }
+  }
+
   @override
   KeyEventResult onKeyEvent(
       RawKeyEvent event, Set<LogicalKeyboardKey> keysPressed) {
@@ -100,7 +146,7 @@ class MainGame extends FlameGame with KeyboardEvents, HasGameRef {
     }
 
     keyDirection = getKeyDirection(event);
-    if (keyDirection != Direction.none) {
+    if (keyDirection != Direction.none && !_tetris.isGameOver) {
       _tetris.keyInput(keyDirection.name);
     }
     return super.onKeyEvent(event, keysPressed);

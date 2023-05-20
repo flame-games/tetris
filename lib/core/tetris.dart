@@ -8,6 +8,7 @@ class Tetris {
   List<List<int>> field = List.generate(fieldHeight, (i) => List.generate(fieldWidth, (i) => 0));
   late Mino mino;
   late Mino nextMino;
+  late Function changeMinoCallbackHandler;
 
   Tetris({
     minoType = 0,
@@ -26,6 +27,8 @@ class Tetris {
       nextMino = getRandomMino();
     }
   }
+
+  void setChangeMinoCallback(Function fn) => changeMinoCallbackHandler = fn;
 
   Mino factoryMino(int type, int angle, int x, int y) {
     return Mino(
@@ -88,6 +91,10 @@ class Tetris {
     return false;
   }
 
+  bool get isMinoBottomHit => isHit(mino.x, mino.y + 1, mino.type, mino.angle);
+
+  bool get isGameOver => mino.y == 0 && isMinoBottomHit;
+
   void keyInput(input) {
     switch (input) {
       // case 'w': minoY++; break;
@@ -115,14 +122,17 @@ class Tetris {
     }
   }
 
-  void cycle() {
-    if(isHit(mino.x, mino.y + 1, mino.type, mino.angle)) {
+  bool cycle() {
+    if(isMinoBottomHit) {
       fieldMergeMino();
       lineFillCheck();
       changeMino();
+      changeMinoCallbackHandler();
+      if (isGameOver) return false;
     } else {
       mino.y++;
     }
+    return true;
   }
 
   void fieldMergeMino() {
