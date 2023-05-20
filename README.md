@@ -2,7 +2,7 @@
 
 Minimum configuration for flame version of Tetris
 
-<img width="500" src="https://github.com/flame-games/tetris/assets/1584153/f66d1bfc-3bf8-4bdd-9f9f-9409fc7000f8">
+<img width="460" src="https://github.com/flame-games/tetris/assets/1584153/f66d1bfc-3bf8-4bdd-9f9f-9409fc7000f8">
 
 ## Usage
 
@@ -13,7 +13,7 @@ flutter run
 ### Input Reference
 
 | input | Direction |
-| -------------- |:------------:|:------------:|
+| -------------- |:------------:|
 | LogicalKeyboardKey keyW or arrowUp | up    |
 | LogicalKeyboardKey keyA or arrowLeft | left  |
 | LogicalKeyboardKey keyD or arrowRight | right |
