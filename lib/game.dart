@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flame/components.dart' hide Timer;
 import 'package:flame/game.dart';
 import 'package:flame/input.dart';
@@ -35,22 +33,24 @@ class MainGame extends FlameGame with KeyboardEvents, HasGameRef {
       final row = _tetris.displayBuffer[y];
       for (var x = 0; x < row.length; x++) {
         if (row[x] == 1) {
-          _wallComponentList.add(createBlock(x + 1, y + 1, getBlockPaint(row[x])));
+          _wallComponentList
+              .add(createBlock(x + 1, y + 1, getBlockPaint(row[x])));
         } else if (row[x] > 1) {
-          _rectComponentList.add(createBlock(x + 1, y + 1, getBlockPaint(row[x])));
+          _rectComponentList
+              .add(createBlock(x + 1, y + 1, getBlockPaint(row[x])));
         }
       }
     }
 
-    for(var wall in _wallComponentList) {
+    for (var wall in _wallComponentList) {
       add(wall);
     }
-    for(var rect in _rectComponentList) {
+    for (var rect in _rectComponentList) {
       add(rect);
     }
 
     createNextMino();
-    for(var nextMino in _nextMinoComponentList) {
+    for (var nextMino in _nextMinoComponentList) {
       add(nextMino);
     }
 
@@ -73,7 +73,7 @@ class MainGame extends FlameGame with KeyboardEvents, HasGameRef {
 
     resetRenderNextMino();
     createNextMino();
-    for(var nextMino in _nextMinoComponentList) {
+    for (var nextMino in _nextMinoComponentList) {
       add(nextMino);
     }
   }
@@ -83,11 +83,12 @@ class MainGame extends FlameGame with KeyboardEvents, HasGameRef {
       final row = _tetris.nextMinoShapeArray[y];
       for (var x = 0; x < row.length; x++) {
         if (row[x] > 1) {
-          _nextMinoComponentList.add(createBlock(x + 1, y + 1, getBlockPaint(row[x])));
+          _nextMinoComponentList
+              .add(createBlock(x + 1, y + 1, getBlockPaint(row[x])));
         }
       }
     }
-    for(var nextMino in _nextMinoComponentList) {
+    for (var nextMino in _nextMinoComponentList) {
       nextMino.position.x = nextMino.position.x + 340;
       nextMino.position.y = nextMino.position.y + 40;
     }
@@ -121,11 +122,12 @@ class MainGame extends FlameGame with KeyboardEvents, HasGameRef {
       final row = _tetris.displayBuffer[y];
       for (var x = 0; x < row.length; x++) {
         if (row[x] > 1) {
-          _rectComponentList.add(createBlock(x + 1, y + 1, getBlockPaint(row[x])));
+          _rectComponentList
+              .add(createBlock(x + 1, y + 1, getBlockPaint(row[x])));
         }
       }
     }
-    for(var rect in _rectComponentList) {
+    for (var rect in _rectComponentList) {
       add(rect);
     }
   }
@@ -139,13 +141,14 @@ class MainGame extends FlameGame with KeyboardEvents, HasGameRef {
 
   void renderNextMino() {
     createNextMino();
-    for(var nextMino in _nextMinoComponentList) {
+    for (var nextMino in _nextMinoComponentList) {
       add(nextMino);
     }
   }
 
   TextComponent getRenderText(String text, double x, double y) {
-    const style = TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold);
+    const style = TextStyle(
+        color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold);
     final regular = TextPaint(style: style);
 
     return TextComponent(text: text, textRenderer: regular)
