@@ -4,6 +4,7 @@ Minimum configuration for flame version of Tetris
 
 <img width="460" src="https://github.com/flame-games/tetris/assets/1584153/f66d1bfc-3bf8-4bdd-9f9f-9409fc7000f8">
 
+Click here to see a [sample](https://flame-games.github.io/tetris/) of how it works on the web.
 ## Usage
 
 ```
